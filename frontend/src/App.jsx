@@ -181,7 +181,7 @@ export default function App() {
     </div>
 
     {/* Input Box */}
-    <div className="w-165 max-w-3xl mx-auto mt-4">
+    <div className="w-full max-w-3xl mx-auto mt-4 ">
     <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-3xl px-3 py-2 shadow-lg">
 
     <input
