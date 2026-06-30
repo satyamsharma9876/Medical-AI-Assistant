@@ -159,22 +159,44 @@ export default function App() {
     </div>
 
     {/* Chat Box */}
-    <div className="w-full max-w-2xl flex-1 overflow-y-auto space-y-3 p-4 
+    <div className="w-full max-w-4xl flex-1 overflow-y-auto space-y-4 p-6 
       rounded-2xl border border-zinc-800 
       bg-white/5 backdrop-blur-md shadow-lg">
 
       {messages.map((msg, i) => (
         <div
           key={i}
-          className={`px-4 py-2 rounded-2xl text-sm leading-relaxed max-w-[60%] shadow-md ${
+          className={`px-5 py-4 rounded-2xl text-sm leading-7 max-w-[85%] shadow-md break-all ${
             msg.role === "user"
               ? "ml-auto bg-blue-600 text-white rounded-br-sm"
               : "mr-auto bg-zinc-800 text-zinc-100 rounded-bl-sm"
           }`}
         >
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+           {/* Markdown Rendering */}
+      <article
+        className="
+          prose
+          prose-invert
+          max-w-none
+
+          prose-headings:mt-2      /* <-- Reduced top gap */
+          prose-headings:mb-2      /* <-- Reduced bottom gap */
+
+          prose-p:my-2             /* <-- Paragraph spacing */
+
+          prose-ul:my-2
+          prose-ol:my-2
+
+          prose-li:my-1            /* <-- List spacing */
+
+          prose-strong:text-white
+          prose-headings:text-white
+        "
+      >
+          <div>
             {msg.text}
-          </ReactMarkdown>
+          </div>
+          </article>
         </div>
       ))}
 
