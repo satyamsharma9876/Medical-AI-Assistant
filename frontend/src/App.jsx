@@ -153,7 +153,7 @@ export default function App() {
    to-black text-white flex flex-col items-center p-4 gap-3">
 
     {/* Header */}
-    <div className="w-full max-w-4xl py-3  tracking-wide 
+    <div className="w-full max-w-4xl py-3  tracking-wide text-center
     font-bold text-sm bg-gray-300 rounded-2xl text-black">
         🩺 Medical AI Assistant
     </div>
