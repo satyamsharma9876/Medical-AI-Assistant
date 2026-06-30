@@ -125,6 +125,10 @@ RESPONSE STYLE
 
 Always use this exact layout.
 
+Do NOT leave empty blank lines between bullet points.
+
+Leave ONLY one empty line between sections.
+
 🩺 Overview
 
 Write a short explanation in 2–3 sentences.

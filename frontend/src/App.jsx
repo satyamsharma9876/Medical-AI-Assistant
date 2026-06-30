@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+// import ReactMarkdown from "react-markdown";
+// import remarkGfm from "remark-gfm";
 
 
 
@@ -153,7 +153,7 @@ export default function App() {
    to-black text-white flex flex-col items-center p-4 gap-3">
 
     {/* Header */}
-    <div className="w-full max-w-2xl py-3  tracking-wide 
+    <div className="w-full max-w-4xl py-3  tracking-wide 
     font-bold text-sm bg-gray-300 rounded-2xl text-black">
         🩺 Medical AI Assistant
     </div>
@@ -193,7 +193,7 @@ export default function App() {
           prose-headings:text-white
         "
       >
-          <div>
+          <div className="whitespace-pre-wrap leading-7 text-[15px]">
             {msg.text}
           </div>
           </article>
@@ -209,8 +209,8 @@ export default function App() {
     </div>
 
     {/* Input Box */}
-    <div className="w-full max-w-3xl mx-auto mt-4 ">
-    <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-3xl px-3 py-2 shadow-lg">
+    <div className="w-full max-w-4xl mx-auto mt-4 ">
+    <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-3xl px-4 py-3 shadow-lg">
 
     <input
       value={question}
