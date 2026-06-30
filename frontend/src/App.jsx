@@ -1,6 +1,10 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+
 
 export default function App() {
   const [question, setQuestion] = useState("");
@@ -168,7 +172,9 @@ export default function App() {
               : "mr-auto bg-zinc-800 text-zinc-100 rounded-bl-sm"
           }`}
         >
-          {msg.text}
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {msg.text}
+          </ReactMarkdown>
         </div>
       ))}
 

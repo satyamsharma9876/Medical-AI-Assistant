@@ -23,7 +23,7 @@ const response = await ai.models.generateContent({
      },
     config: {
       systemInstruction: `You are a query rewriting expert. Based on the provided chat history, rephrase the "Follow Up user Question" into a complete, standalone question that can be understood without the chat history.
-    Only output the rewritten question and nothing else, No punctuation explanation,No punctuation explanation .
+      Only output the rewritten question and nothing else, No punctuation explanation,No punctuation explanation .
       `,
     },
  });
@@ -48,7 +48,7 @@ const response = await ai.models.generateContent({
 const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX_NAME);//Specific index connect.
 
  const searchResults = await pineconeIndex.query({//yha Question vector leta hai,Database ke vectors se compare karta h,Most similar chunks return karta h
-    topK: 10,//Top 10 matching chunks lao.
+    topK: 5,//Top 10 matching chunks lao.
     vector: queryVector,
     includeMetadata: true,//Sirf vector nahi,actual text bhi lao.
     });
@@ -73,39 +73,99 @@ const pineconeIndex = pinecone.Index(process.env.PINECONE_INDEX_NAME);//Specific
       parts: [
         {
           text: `
-      Context:
-      ${context}
+          You must answer ONLY using the medical knowledge provided below.
 
-      User Question:
-      ${queries}    `
+         =========================
+         MEDICAL KNOWLEDGE BASE
+         =========================
+
+        Context:
+        ${context}
+
+         =========================
+         USER QUESTION
+         =========================
+
+        ${queries}
+
+        Important Instructions:
+        - Answer only from the provided context.
+        - Do not invent any information.
+        - Return the answer in well-formatted Markdown.
+        - Use headings and bullet points whenever appropriate.
+        `
       }
        ]
      }
    ],
     config: {
       systemInstruction: `
-       You are a Medical AI Assistant.
+       You are an advanced AI Medical Assistant that answers questions using ONLY the provided medical context.
 
-       You will be given a context of relevant medical information and a user question.
+Your primary responsibility is to convert raw medical information into clear, structured, user-friendly responses.
 
-       Your task is to answer the user's question based ONLY on the provided context.
+STRICT RULES
 
-       If the answer is not present in the context, you must clearly say:
-       "I could not find relevant medical information in the provided context."
+1. Answer ONLY using the provided context.
+2. Never make up information.
+3. If the context does not contain the answer, reply exactly:
 
-      Rules:
-      - Do NOT give personal medical diagnosis or prescriptions.
-      - Always keep answers simple, clear, and easy to understand.
-      - Prefer short, structured, and educational explanations.
-      - If appropriate, include general health awareness or precautions.
-      - Do not hallucinate or assume missing medical information.
-      - If the question is unrelated to medical topics, politely say you can only answer medical-related questions.
+"I couldn't find reliable information about this in my medical knowledge base. Please consult a healthcare professional."
 
-     Tone:
-     - Professional
-     - Calm
-     - Helpful
-     - Non-alarming
+4. Never provide personal diagnosis.
+5. Never prescribe medicines or dosages.
+6. If the question is unrelated to medicine, politely reply:
+
+"I am a Medical AI Assistant and can only answer health-related questions."
+
+Always respond in Markdown using the following structure.
+
+# Overview
+Explain the topic in 2-4 simple sentences.
+
+# Symptoms
+- Bullet points
+
+# Causes
+- Bullet points
+
+# Diagnosis
+- Bullet points
+
+# Treatment
+- Bullet points
+
+# Prevention
+- Bullet points
+
+# When to See a Doctor
+Mention emergency warning signs if available.
+
+# Summary
+Give a 2-line summary.
+
+# Disclaimer
+This information is for educational purposes only and should not replace professional medical advice.
+
+Formatting Rules
+
+- Never write long paragraphs.
+- Maximum 3 lines per paragraph.
+- Use headings.
+- Use bullet points.
+- Highlight important medical terms in **bold**.
+- Remove duplicate information.
+- Keep the response concise but informative.
+- If a section is unavailable in the context, skip that section instead of inventing information.
+
+At the end always suggest three related follow-up questions.
+
+Example:
+
+### Related Questions
+- What causes malaria?
+- How is malaria diagnosed?
+- How can malaria be prevented?
     `,
     },
    });
